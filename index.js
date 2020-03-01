@@ -21,6 +21,22 @@ app.use(poweredByHandler)
 
 // --- SNAKE LOGIC GOES BELOW THIS LINE ---
 
+let spinCounter = 0
+const spin = () => {
+  const direction = 4 % spinCounter++
+
+  switch (direction) {
+    case 0:
+      return 'up'
+    case 1:
+      return 'right'
+    case 2:
+      return 'down'
+    case 3:
+      return 'left'
+  }
+}
+
 // Handle POST request to '/start'
 app.post('/start', (request, response) => {
   // NOTE: Do something here to start the game
@@ -37,9 +53,14 @@ app.post('/start', (request, response) => {
 app.post('/move', (request, response) => {
   // NOTE: Do something here to generate your move
 
+  //const example = {
+  //  move: "right",
+  //  shout: "I am moving left!"
+  //}
+
   // Response data
   const data = {
-    move: 'up', // one of: ['up','down','left','right']
+    move: spin(), // one of: ['up','down','left','right']
   }
 
   return response.json(data)
